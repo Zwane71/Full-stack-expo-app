@@ -1,9 +1,9 @@
 import { Image, StyleSheet, Platform } from "react-native";
 
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import { HelloWave } from "@/src/components/HelloWave";
+import ParallaxScrollView from "@/src/components/ParallaxScrollView";
+import { ThemedText } from "@/src/components/ThemedText";
+import { ThemedView } from "@/src/components/ThemedView";
 
 export default function HomeScreen() {
 	return (
@@ -11,12 +11,12 @@ export default function HomeScreen() {
 			headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
 			headerImage={
 				<Image
-					source={require("@/assets/images/partial-react-logo.png")}
+					source={require("../../../assets/images/partial-react-logo.png")}
 					style={styles.reactLogo}
 				/>
 			}>
 			<ThemedView style={styles.titleContainer}>
-				<ThemedText type='title'>Dev build ! </ThemedText>
+				<ThemedText type='title'>Dev builds! </ThemedText>
 				<HelloWave />
 			</ThemedView>
 			<ThemedView style={styles.stepContainer}>
