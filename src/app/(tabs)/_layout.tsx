@@ -7,6 +7,7 @@ import { IconSymbol } from "@/src/components/ui/IconSymbol";
 import TabBarBackground from "@/src/components/ui/TabBarBackground";
 import { Colors } from "@/src/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function TabLayout() {
 	const colorScheme = useColorScheme();
@@ -15,7 +16,7 @@ export default function TabLayout() {
 		<Tabs
 			screenOptions={{
 				tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-				headerShown: false,
+
 				tabBarButton: HapticTab,
 				tabBarBackground: TabBarBackground,
 				tabBarStyle: Platform.select({
@@ -29,18 +30,25 @@ export default function TabLayout() {
 			<Tabs.Screen
 				name='index'
 				options={{
-					title: "Home",
+					href: null,
+				}}
+			/>
+			<Tabs.Screen
+				name='menu'
+				options={{
+					title: "Menu",
+					headerShown: false,
 					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name='house.fill' color={color} />
+						<FontAwesome name='cutlery' size={24} color={color} />
 					),
 				}}
 			/>
 			<Tabs.Screen
 				name='explore'
 				options={{
-					title: "Explore",
+					title: "Orders",
 					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name='paperplane.fill' color={color} />
+						<FontAwesome name='list' size={20} color={color} />
 					),
 				}}
 			/>

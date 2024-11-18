@@ -1,7 +1,15 @@
 import { Colors } from "@/src/constants/Colors";
-import { Image, StyleSheet, Platform, View, Text } from "react-native";
+import {
+	Image,
+	StyleSheet,
+	Platform,
+	View,
+	Text,
+	Pressable,
+} from "react-native";
 import { Product } from "../types";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Link } from "expo-router";
 
 type ProductListItemProps = {
 	product: Product;
@@ -10,17 +18,22 @@ type ProductListItemProps = {
 const ProductListItem = ({ product }: ProductListItemProps) => {
 	return (
 		<SafeAreaView style={styles.container}>
-			<Image
-				source={{
-					uri:
-						product.image ||
-						"https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png",
-				}}
-				style={styles.image}
-				resizeMode='contain'
-			/>
-			<Text style={styles.title}>{product.name}</Text>
-			<Text style={styles.price}>${product.price}</Text>
+			<Link href={`/menu/${product.id}`} asChild>
+				<Pressable>
+					<Image
+						source={{
+							uri:
+								product.image ||
+								"https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png",
+						}}
+						style={styles.image}
+						resizeMode='contain'
+					/>
+					<Text style={styles.title}>{product.name}</Text>
+					<Text style={styles.price}>${product.price}</Text>
+					<Text>Go to products</Text>
+				</Pressable>
+			</Link>
 		</SafeAreaView>
 	);
 };
