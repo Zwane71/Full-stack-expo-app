@@ -8,15 +8,19 @@ import {
 	Button,
 	Image,
 	TouchableOpacity,
+	Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { Stack } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 
 const CreateProductScreen = () => {
 	const [name, setName] = useState("");
 	const [price, setPrice] = useState("");
 	const [errors, setErrors] = useState("");
 	const [image, setImage] = useState<string | null>(null);
+
+	const { id } = useLocalSearchParams();
+	const isUpdating = !!id;
 
 	const resetField = () => {
 		setErrors("");
@@ -39,11 +43,28 @@ const CreateProductScreen = () => {
 		return true;
 	};
 
+	const onSubmit = () => {
+		if (isUpdating) {
+			//update
+			onUpdate();
+		} else {
+			onCreate();
+		}
+	};
 	const onCreate = () => {
 		if (!validateInput()) {
 			return;
 		}
 		console.warn("Creating product:", { name, price, image });
+
+		resetField();
+	};
+
+	const onUpdate = () => {
+		if (!validateInput()) {
+			return;
+		}
+		console.warn("updating product:", { name, price, image });
 
 		resetField();
 	};
@@ -64,9 +85,27 @@ const CreateProductScreen = () => {
 		}
 	};
 
+	const onDelete = () => {
+		console.warn("DETELE!!");
+	};
+	const confirmDelete = () => {
+		Alert.alert("Confirm ", "Are you sure you want to delete this product", [
+			{
+				text: " Cancel",
+			},
+			{
+				text: "Delete",
+				style: "destructive",
+				onPress: onDelete,
+			},
+		]);
+	};
+
 	return (
 		<View style={styles.container}>
-			<Stack.Screen options={{ title: "Create Products" }} />
+			<Stack.Screen
+				options={{ title: isUpdating ? "Update Product" : "Create Products" }}
+			/>
 			<TouchableOpacity onPress={pickImage}>
 				<Image
 					source={{
@@ -98,7 +137,12 @@ const CreateProductScreen = () => {
 
 			{errors ? <Text style={styles.errorText}>{errors}</Text> : null}
 
-			<Button onPress={onCreate} title='Create' />
+			<Button onPress={onSubmit} title={isUpdating ? "Update" : "Create"} />
+			{isUpdating && (
+				<Text onPress={confirmDelete} style={styles.textButton}>
+					Delete
+				</Text>
+			)}
 		</View>
 	);
 };
