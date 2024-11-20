@@ -12,7 +12,7 @@ const MenuScreenLayout = () => {
 				options={{
 					title: "Menu",
 					headerRight: () => (
-						<Link href={"/"} asChild>
+						<Link href={"/(admin)/menu/create"} asChild>
 							<Pressable>
 								{({ pressed }) => (
 									<FontAwesome
@@ -33,8 +33,8 @@ const MenuScreenLayout = () => {
 				options={{
 					title: "Menu",
 					headerRight: () => (
-						<Link href={"/"} asChild>
-							<Pressable>
+						<Link href={"/cart"} asChild>
+							<Pressable onPress={() => console.log("Pressable clicked")}>
 								{({ pressed }) => (
 									<FontAwesome
 										name='pencil'
